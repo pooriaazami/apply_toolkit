@@ -33,6 +33,7 @@ class LoginScreen(Screen):
             return
         else:
             #TODO: Create user and save to database
+            pass
 
     @on(Button.Pressed, '#exit-btn')
     def exit_pressed(self, event: Button.Pressed) -> None:
