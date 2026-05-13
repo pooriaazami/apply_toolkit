@@ -1,0 +1,10 @@
+#btn1{
+    background: blue;
+    color: white;
+    border: none;
+    padding: 0;
+}
+
+#btn1:hover{
+    background: red;
+}
