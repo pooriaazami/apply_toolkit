@@ -15,7 +15,6 @@ class ApplyApp(App):
         self.__db_session = db_session
 
     def on_mount(self):
-        # if len(Users) == 0:
         if get_number_of_users(self.__db_session) == 0:
             self.push_screen(LoginScreen(db_session=self.__db_session))
             print('User created!')
