@@ -4,8 +4,14 @@ from textual.screen import Screen
 from textual.containers import Center, VerticalGroup, HorizontalGroup
 from textual.widgets import Label, Input, Button
 
+from db.queries import create_user
+
 class LoginScreen(Screen):
     CSS_PATH = "tcss/loginpage.tcss"
+
+    def __init__(self, db_session=None, name: str | None = None, id: str | None = None, classes: str | None = None) -> None:
+        super().__init__(name, id, classes)
+        self.__db_session = db_session
 
     def compose(self) -> ComposeResult:
         yield Center(
@@ -32,8 +38,8 @@ class LoginScreen(Screen):
             self.query_one('#label', Label).update('Passwords do not match. Please try again.')
             return
         else:
-            #TODO: Create user and save to database
-            pass
+            create_user(self.__db_session, username, password)
+            self.dismiss()
 
     @on(Button.Pressed, '#exit-btn')
     def exit_pressed(self, event: Button.Pressed) -> None:
