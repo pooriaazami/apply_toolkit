@@ -40,8 +40,8 @@ class RegisterScreen(Screen):
             self.query_one('#label', Label).update('Passwords do not match. Please try again.')
             return
         else:
-            create_user(self.__db_session, username, password)
-            self.dismiss()
+            user = create_user(self.__db_session, username, password)
+            self.dismiss(user)
 
     @on(Button.Pressed, '#exit-btn')
     def exit_pressed(self, event: Button.Pressed) -> None:

@@ -1,5 +1,7 @@
 import os
 
+import typer
+
 from db.models import User
 from utils import create_db_connection
 
@@ -16,11 +18,11 @@ def create_database():
 
 def main():
     if os.path.exists(os.environ.get("DATABASE_PATH", "apply_db.sqlite3")):
-        print("Database already exists. Skipping creation.")
+        typer.echo("Database already exists. Skipping creation.")
     else:
-        print("Creating database...")
+        typer.echo("Creating database...")
         create_database()
-        print("Database created successfully.")
+        typer.echo("Database created successfully.")
 
 if __name__ == "__main__":
     main()

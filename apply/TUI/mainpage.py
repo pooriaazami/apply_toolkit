@@ -17,5 +17,4 @@ class MainScreen(Screen):
                 Tab('desk', id='desk-tab'),
                 Tab('assets', id='assets-tab'),
                 Tab('settings', id='settings-tab'),
-            )   
-    
+            )

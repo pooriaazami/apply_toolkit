@@ -19,7 +19,7 @@ class LoginScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Center(
             VerticalGroup(
-                Label('This is a label', id='label'),
+                Label('', id='label'),
                 Input(placeholder='Username', id='username'),
                 Input(placeholder='password', password=True, id='password'),
                 Button('Login', classes='btn r1', id='login-btn'),
