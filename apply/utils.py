@@ -10,7 +10,6 @@ load_dotenv('.env')
 def create_db_connection():
     engine = create_engine(
         'sqlite:///' + os.getenv("DATABASE_PATH", "apply_db.sqlite3"),
-        echo=True
     )
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

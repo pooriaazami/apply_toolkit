@@ -1,3 +1,5 @@
+import os
+
 from textual import on
 from textual.app import ComposeResult
 from textual.screen import Screen
@@ -6,8 +8,8 @@ from textual.widgets import Label, Input, Button
 
 from db.queries import create_user
 
-class LoginScreen(Screen):
-    CSS_PATH = "tcss/loginpage.tcss"
+class RegisterScreen(Screen):
+    CSS_PATH = CSS_PATH = os.path.join("tcss", "registerpage.tcss")
 
     def __init__(self, db_session=None, name: str | None = None, id: str | None = None, classes: str | None = None) -> None:
         super().__init__(name, id, classes)
@@ -28,7 +30,7 @@ class LoginScreen(Screen):
             id='wrapper'
         )
 
-    @on(Button.Pressed, '.btn')
+    @on(Button.Pressed, '#register-btn')
     def button_pressed(self, event: Button.Pressed) -> None:
         username = self.query_one('#username', Input).value
         password = self.query_one('#password', Input).value
@@ -43,4 +45,4 @@ class LoginScreen(Screen):
 
     @on(Button.Pressed, '#exit-btn')
     def exit_pressed(self, event: Button.Pressed) -> None:
-        self.app.exit()
+        self.dismiss('exit')

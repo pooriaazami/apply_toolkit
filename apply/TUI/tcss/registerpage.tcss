@@ -16,14 +16,7 @@
 
 .btn{
     background: grey;
-    margin: 0 0 0 1; 
-    align: center middle;
-}
-
-.r1{
-    width: 100%;
-}
-
-.r2{
+    margin: 1 0 0 1; 
     width: 50%;
+    align: center middle;
 }

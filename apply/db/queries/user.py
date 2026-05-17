@@ -1,6 +1,6 @@
 from sqlalchemy import func, select
 
-from ..utils import hash_password
+from ..utils import hash_password, verify_password
 from ..models.user import User
 
 
@@ -18,3 +18,13 @@ def create_user(session, username: str, password: str):
     session.refresh(new_user)
     
     return new_user
+
+def verify_user(session, username: str, password: str):
+    user = session.scalar(
+        select(User).where(User.username == username)
+    )
+
+    if user is not None and verify_password(password, user.password_hash):
+        return user
+    else:
+        return None
