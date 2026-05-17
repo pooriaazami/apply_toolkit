@@ -1,4 +1,5 @@
-from textual.widgets import Label, Header, Footer
+from textual.containers import VerticalGroup
+from textual.widgets import Label, Header, Footer, Tabs, Tab
 from textual.screen import Screen
 
 class MainScreen(Screen):
@@ -10,5 +11,11 @@ class MainScreen(Screen):
     def compose(self):
         yield Header()
         yield Footer()
-        
-        yield Label(f'Welcome to the app {self.__user.username}')
+
+        yield Tabs(
+                Tab('dashboard', id='dashboard-tab'),
+                Tab('desk', id='desk-tab'),
+                Tab('assets', id='assets-tab'),
+                Tab('settings', id='settings-tab'),
+            )   
+    
