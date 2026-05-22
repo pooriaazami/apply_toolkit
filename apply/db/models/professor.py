@@ -8,7 +8,7 @@ class Tag(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    name: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
 
 class Professor(Base):

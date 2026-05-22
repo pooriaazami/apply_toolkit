@@ -9,7 +9,7 @@ class Country(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     name: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
-    code: Mapped[str] = mapped_column(String(2), unique=True, nullable=False)
+    code: Mapped[str] = mapped_column(String(3), unique=True, nullable=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
 
     universities = relationship("University", back_populates="country")
