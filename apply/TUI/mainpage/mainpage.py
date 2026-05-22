@@ -23,8 +23,8 @@ class MainScreen(Screen):
 
     def __init__(self, db_session, user):
         super().__init__()
-        self.db_session = db_session
-        self.user = user
+        self.__db_session = db_session
+        self.__user = user
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -39,15 +39,19 @@ class MainScreen(Screen):
                 with Container():
                     with Horizontal(id="input-container"):
                         yield ListView(
+                            ListItem(Label("Country"), id="country-item"),
+                            ListItem(Label('Tags'), id='tags-item'),
                             ListItem(Label("University"), id="university-item"),
                             ListItem(Label("Professor"), id="professor-item"),
                             id="input-list",
                         )
 
                         with ContentSwitcher(
-                            initial="university-form",
+                            initial="country-form",
                             id="input-switcher",
                         ):
+                            yield CountryForm(id='country-form', db_session=self.__db_session, user=self.__user)
+                            yield TagsForm(id='tags-form')
                             yield UniversityForm(id="university-form")
                             yield ProfessorForm(id="professor-form")
 
@@ -71,3 +75,9 @@ class MainScreen(Screen):
 
         elif event.item.id == "professor-item":
             switcher.current = "professor-form"
+
+        elif event.item.id == 'country-item':
+            switcher.current = 'country-form'
+
+        elif event.item.id == 'tags-item':
+            switcher.current = 'tags-form'

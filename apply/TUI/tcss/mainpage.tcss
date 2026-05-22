@@ -17,3 +17,21 @@
     width: 3fr;
     padding: 1;
 }
+
+#country-form__country-name{
+    width: 3fr;
+}
+
+#country-form__country-code{
+    width: 1fr;
+}
+
+#country-form__add-btn{
+    margin: 1;
+    width: 2fr;
+}
+
+#country-form__message{
+    margin: 2;
+    width: 6fr;
+}

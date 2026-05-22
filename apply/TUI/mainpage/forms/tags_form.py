@@ -3,7 +3,6 @@ from textual.widgets import Label, Input, Select, SelectionList
 from textual.containers import Container
 
 
-class UniversityForm(Container):
+class TagsForm(Container):
     def compose(self) -> ComposeResult:
-        yield Select(options=[('United Stated', 'US'), ('Canada', 'CA')])
-        yield Input(placeholder="University Name")
+        yield Label('Tags Form')
