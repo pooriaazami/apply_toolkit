@@ -14,4 +14,4 @@ def add_country(session, name: str, code: str, user_id: int):
 def get_countries_by_user(session, user_id: int):
     stmt = select(Country).where(Country.user_id == user_id)
     result = session.execute(stmt).scalars().all()
-    return list(map(lambda c: f'{str(c.name)} | ({c.code})', result))
+    return result

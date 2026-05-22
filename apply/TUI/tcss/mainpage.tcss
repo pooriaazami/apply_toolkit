@@ -48,3 +48,10 @@
     margin: 2;
 }
 
+#university-form__country-select{
+    width: 2fr;
+}
+
+#university-form__university-name{
+    width: 1fr;
+}

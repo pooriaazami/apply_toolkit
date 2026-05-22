@@ -1,11 +1,18 @@
+from email.message import Message
+
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Input, Button, Label, ListView, ListItem
+from textual.widgets import Input, Button, Label, ListView, ListItem, Select
 from textual.containers import Container, HorizontalGroup
+
+from textual.message import Message
 
 from db.queries import add_country, get_countries_by_user
 
 class CountryForm(Container):
+
+    class CountryAdded(Message):
+        pass
 
     def __init__(self, db_session, active_user, *children: Widget, name: str | None = None, id: str | None = None, classes: str | None = None, disabled: bool = False, markup: bool = True) -> None:
         super().__init__(*children, name=name, id=id, classes=classes, disabled=disabled, markup=markup)
@@ -24,7 +31,8 @@ class CountryForm(Container):
         )
 
         yield ListView(
-            *[ListItem(Label(country)) for country in get_countries_by_user(self.__db_session, self.__active_user.id)],
+            *[ListItem(Label(f'{country.name} | ({country.code})')) 
+              for country in get_countries_by_user(self.__db_session, self.__active_user.id)],
             id='country-form__country-list'
         )
 
@@ -43,6 +51,7 @@ class CountryForm(Container):
 
             if new_country:
                 self.query_one('#country-form__message', Label).update(f"Added country: {new_country.name} ({new_country.code})")
-                self.query_one('#country-form__country-list', ListView).append(ListItem(Label(f'{new_country.name} | ({new_country.code})')))
+                self.query_one('#country-form__country-list', ListView).append(ListItem(Label(f'{new_country.name} | ({new_country.code})')))                
+                self.post_message(self.CountryAdded())
             else:
                 self.query_one('#country-form__message', Label).update("Failed to add country.")

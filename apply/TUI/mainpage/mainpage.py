@@ -52,7 +52,7 @@ class MainScreen(Screen):
                         ):
                             yield CountryForm(id='country-form', db_session=self.__db_session, active_user=self.__user)
                             yield TagsForm(id='tags-form', db_session=self.__db_session, active_user=self.__user)
-                            yield UniversityForm(id="university-form")
+                            yield UniversityForm(id="university-form", db_session=self.__db_session, active_user=self.__user)
                             yield ProfessorForm(id="professor-form")
 
                 with Container(id='test-container'):
@@ -81,3 +81,7 @@ class MainScreen(Screen):
 
         elif event.item.id == 'tags-item':
             switcher.current = 'tags-form'
+            
+    def on_country_form_country_added(self, message: CountryForm.CountryAdded):
+        university_form = self.query_one("#university-form", UniversityForm)
+        university_form.refresh_countries()
