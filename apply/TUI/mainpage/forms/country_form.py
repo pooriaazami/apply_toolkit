@@ -3,14 +3,14 @@ from textual.widget import Widget
 from textual.widgets import Input, Button, Label, ListView, ListItem
 from textual.containers import Container, HorizontalGroup
 
-from db.queries import add_country, fetch_all_countries
+from db.queries import add_country, get_countries_by_user
 
 class CountryForm(Container):
 
-    def __init__(self, db_session, user, *children: Widget, name: str | None = None, id: str | None = None, classes: str | None = None, disabled: bool = False, markup: bool = True) -> None:
+    def __init__(self, db_session, active_user, *children: Widget, name: str | None = None, id: str | None = None, classes: str | None = None, disabled: bool = False, markup: bool = True) -> None:
         super().__init__(*children, name=name, id=id, classes=classes, disabled=disabled, markup=markup)
         self.__db_session = db_session
-        self.__user = user
+        self.__active_user = active_user
 
     def compose(self) -> ComposeResult:
         yield HorizontalGroup(
@@ -24,7 +24,7 @@ class CountryForm(Container):
         )
 
         yield ListView(
-            *[ListItem(Label(country)) for country in fetch_all_countries(self.__db_session)],
+            *[ListItem(Label(country)) for country in get_countries_by_user(self.__db_session, self.__active_user.id)],
             id='country-form__country-list'
         )
 
@@ -37,10 +37,12 @@ class CountryForm(Container):
                 self.query_one('#country-form__message', Label).update("Please fill in all fields.")
                 return
             
-            new_country = add_country(self.__db_session, country_name, country_code, self.__user.id)
+            new_country = add_country(self.__db_session, country_name, country_code, self.__active_user.id)
+            self.query_one('#country-form__country-name', Input).value = ""
+            self.query_one('#country-form__country-code', Input).value = ""
+
             if new_country:
                 self.query_one('#country-form__message', Label).update(f"Added country: {new_country.name} ({new_country.code})")
-                self.query_one('#country-form__country-name', Input).value = ""
-                self.query_one('#country-form__country-code', Input).value = ""
-
                 self.query_one('#country-form__country-list', ListView).append(ListItem(Label(f'{new_country.name} | ({new_country.code})')))
+            else:
+                self.query_one('#country-form__message', Label).update("Failed to add country.")

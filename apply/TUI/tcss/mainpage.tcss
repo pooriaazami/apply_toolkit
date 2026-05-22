@@ -35,3 +35,16 @@
     margin: 2;
     width: 6fr;
 }
+
+#tags-form__tag-name{
+    width: 3fr;
+}
+
+#tags-form__add-btn{
+    width: 1fr;
+}
+
+#tags-form__message{
+    margin: 2;
+}
+

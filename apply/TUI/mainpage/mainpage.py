@@ -50,8 +50,8 @@ class MainScreen(Screen):
                             initial="country-form",
                             id="input-switcher",
                         ):
-                            yield CountryForm(id='country-form', db_session=self.__db_session, user=self.__user)
-                            yield TagsForm(id='tags-form')
+                            yield CountryForm(id='country-form', db_session=self.__db_session, active_user=self.__user)
+                            yield TagsForm(id='tags-form', db_session=self.__db_session, active_user=self.__user)
                             yield UniversityForm(id="university-form")
                             yield ProfessorForm(id="professor-form")
 
