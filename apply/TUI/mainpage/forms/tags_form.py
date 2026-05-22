@@ -19,10 +19,10 @@ class TagsForm(Container):
             
         )
 
-        yield Label('Test', id='tags-form__message')
+        yield Label('', id='tags-form__message')
 
         yield ListView(
-            *[ListItem(Label(tag)) for tag in get_tags_by_user(self.__db_session, self.__active_user.id)],
+            *[ListItem(Label(tag.name)) for tag in get_tags_by_user(self.__db_session, self.__active_user.id)],
             id='tags-form__tag-list'
         )
 

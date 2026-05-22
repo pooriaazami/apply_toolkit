@@ -15,7 +15,6 @@ class Professor(Base):
     __tablename__ = "professors"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     university_id: Mapped[int] = mapped_column(ForeignKey("universities.id"))
     name: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
     email: Mapped[str] = mapped_column(String(100), nullable=False)

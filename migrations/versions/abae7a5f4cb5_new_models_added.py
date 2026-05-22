@@ -1,8 +1,8 @@
-"""tags + profs
+"""new models added
 
-Revision ID: c9082d8dc6c9
-Revises: c41cf175b48e
-Create Date: 2026-05-22 13:48:06.421474
+Revision ID: abae7a5f4cb5
+Revises: 9de2ae143fbc
+Create Date: 2026-05-22 14:18:51.631676
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'c9082d8dc6c9'
-down_revision: Union[str, Sequence[str], None] = 'c41cf175b48e'
+revision: str = 'abae7a5f4cb5'
+down_revision: Union[str, Sequence[str], None] = '9de2ae143fbc'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -60,14 +60,12 @@ def upgrade() -> None:
     )
     op.create_table('professors',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('university_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
     sa.Column('notes', sa.String(length=500), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['university_id'], ['universities.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
