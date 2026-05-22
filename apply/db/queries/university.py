@@ -2,12 +2,14 @@ from sqlalchemy import select
 
 from ..models import University, Country
 
-def add_university(session, name: str, country: str):
-    country_obj = session.query(Country).filter_by(name=country).first()
-    university = University(name=name, country_id=country_obj.id)
+def add_university(session, name: str, country_id: int):
+    new_university = University(name=name, country_id=country_id)
 
-    session.add(university)
+    session.add(new_university)
     session.commit()
+    session.refresh(new_university)
+
+    return new_university
 
 def get_universities_by_country(session, country_id: int):
     return session.query(University).filter_by(country_id=country_id).all()

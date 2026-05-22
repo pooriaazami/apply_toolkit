@@ -49,9 +49,19 @@
 }
 
 #university-form__country-select{
-    width: 2fr;
+    width: 1fr;
 }
 
 #university-form__university-name{
+    width: 2fr;
+    margin: 2;
+}
+
+#university-form__add-btn{
     width: 1fr;
+}
+
+#university-form__message{
+    width: 2fr;
+    margin: 2;
 }

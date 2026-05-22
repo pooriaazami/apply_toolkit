@@ -55,8 +55,8 @@ class MainScreen(Screen):
                             yield UniversityForm(id="university-form", db_session=self.__db_session, active_user=self.__user)
                             yield ProfessorForm(id="professor-form")
 
-                with Container(id='test-container'):
-                    yield Label("input content goes here.")
+                # with Container(id='test-container'):
+                #     yield Label("input content goes here.")
 
             with TabPane("tasks"):
                 yield Label('Tasks contest goes here.')
@@ -81,7 +81,7 @@ class MainScreen(Screen):
 
         elif event.item.id == 'tags-item':
             switcher.current = 'tags-form'
-            
+
     def on_country_form_country_added(self, message: CountryForm.CountryAdded):
         university_form = self.query_one("#university-form", UniversityForm)
         university_form.refresh_countries()

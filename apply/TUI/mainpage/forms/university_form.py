@@ -1,9 +1,9 @@
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Label, Input, Select, SelectionList
+from textual.widgets import Button, Label, Input, Select, SelectionList
 from textual.containers import Container, HorizontalGroup
 
-from db.queries import get_countries_by_user
+from db.queries import get_countries_by_user, add_university
 
 
 class UniversityForm(Container):
@@ -20,10 +20,33 @@ class UniversityForm(Container):
                 options=[
                     (country.name, country.code) for country in get_countries_by_user(self.__db_session, self.__active_user.id)
                 ],
-                id='university-form__country-select'
+                id='university-form__country-select',
+                prompt='Select the country where the university is located'
             ),
             Input(placeholder="University Name", id='university-form__university-name')
+        
         )
+        
+        yield HorizontalGroup(
+            Button("Add", id='university-form__add-btn'),
+            Label("", id='university-form__message')
+        )
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == 'university-form__add-btn':
+            university_name = self.query_one('#university-form__university-name', Input).value
+            country_id = self.query_one('#university-form__country-select', Select).value
+
+            if not country_id or not university_name:
+                self.query_one('#university-form__message', Label).update("Please fill in all fields.")
+                return
+            
+            new_university = add_university(self.__db_session, university_name, country_id)
+            if new_university:
+                self.query_one('#university-form__message', Label).update("University added successfully.")
+                self.query_one('#university-form__university-name', Input).value = ""
+            else:
+                self.query_one('#university-form__message', Label).update("Failed to add university.")
 
     def on_mount(self):
         self.refresh_countries()
@@ -38,4 +61,4 @@ class UniversityForm(Container):
             self.__active_user.id
         )
 
-        select.set_options([(country.name, country.code) for country in countries])
+        select.set_options([(country.name, country.id) for country in countries])
