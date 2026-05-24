@@ -1,4 +1,5 @@
 from textual.app import ComposeResult
+from textual.message import Message
 from textual.widget import Widget
 from textual.widgets import Button, Label, Input, Select, SelectionList, ListView, ListItem
 from textual.containers import Container, HorizontalGroup
@@ -7,6 +8,9 @@ from db.queries import get_countries_by_user, add_university, get_universities_b
 
 
 class UniversityForm(Container):
+    
+    class UniversityAdded(Message):
+        pass   
 
     def __init__(self, db_session, active_user, *children: Widget, name: str | None = None, id: str | None = None, classes: str | None = None, disabled: bool = False, markup: bool = True) -> None:
         super().__init__(*children, name=name, id=id, classes=classes, disabled=disabled, markup=markup)
@@ -54,6 +58,7 @@ class UniversityForm(Container):
                 self.query_one('#university-form__message', Label).update("University added successfully.")
                 self.query_one('#university-form__university-name', Input).value = ""
                 self.query_one('#university-form__university-list', ListView).append(ListItem(Label(f"{new_university.name} | ({new_university.country.name})")))
+                self.post_message(self.UniversityAdded())
             else:
                 self.query_one('#university-form__message', Label).update("Failed to add university.")
 

@@ -53,7 +53,7 @@ class MainScreen(Screen):
                             yield CountryForm(id='country-form', db_session=self.__db_session, active_user=self.__user)
                             yield TagsForm(id='tags-form', db_session=self.__db_session, active_user=self.__user)
                             yield UniversityForm(id="university-form", db_session=self.__db_session, active_user=self.__user)
-                            yield ProfessorForm(id="professor-form")
+                            yield ProfessorForm(id="professor-form", db_session=self.__db_session, active_user=self.__user)
 
                 # with Container(id='test-container'):
                 #     yield Label("input content goes here.")
@@ -85,3 +85,11 @@ class MainScreen(Screen):
     def on_country_form_country_added(self, message: CountryForm.CountryAdded):
         university_form = self.query_one("#university-form", UniversityForm)
         university_form.refresh_countries()
+
+    def on_tags_form_tag_added(self, message: TagsForm.TagAdded):
+        professor_form = self.query_one("#professor-form", ProfessorForm)
+        professor_form.refresh_tags()
+
+    def on_university_form_university_added(self, message: UniversityForm.UniversityAdded):
+        professor_form = self.query_one("#professor-form", ProfessorForm)
+        professor_form.refresh_universities()

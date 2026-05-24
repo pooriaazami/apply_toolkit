@@ -65,3 +65,99 @@
     width: 2fr;
     margin: 2;
 }
+
+ProfessorForm {
+    layout: vertical;
+    height: 1fr;
+    padding: 1 2;
+}
+
+#professor-form__input-group-name-email {
+    height: auto;
+    margin-bottom: 1;
+}
+
+#professor-form__name {
+    width: 2fr;
+    margin-right: 1;
+}
+
+#professor-form__email {
+    width: 4fr;
+}
+
+#professor-form__input-group-all {
+    height: auto;
+    margin-bottom: 1;
+}
+
+#professor-form__university {
+    width: 1fr;
+    margin-bottom: 1;
+}
+
+#professor-form__notes {
+    width: 1fr;
+    height: 8;
+    margin-bottom: 1;
+}
+
+#professor-form__add-btn {
+    width: 100%;
+    margin-top: 1;
+}
+
+#professor-form__tags-selection {
+    width: 1fr;
+    height: auto;
+    border: round $primary;
+    padding: 1;
+    margin-left: 2;
+}
+
+#professor-form__professor-list {
+    height: 1fr;
+    border: round $primary;
+    padding: 1;
+    background: $surface;
+}
+
+Input {
+    border: round $surface;
+}
+
+Input:focus {
+    border: round $primary;
+}
+
+TextArea {
+    border: round $surface;
+}
+
+TextArea:focus {
+    border: round $primary;
+}
+
+Select {
+    border: round $surface;
+}
+
+Select:focus {
+    border: round $primary;
+}
+
+Button {
+    min-height: 3;
+}
+
+ProfessorForm {
+    layout: vertical;
+    height: 1fr;
+    padding: 1 2;
+}
+
+ListView {
+    background: $surface;
+    border: solid $primary;
+    padding: 1;
+}

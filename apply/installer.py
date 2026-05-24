@@ -2,7 +2,7 @@ import os
 
 import typer
 
-from db.models import User
+from db.models import User, Professor, University, Country, Tag     
 from utils import create_db_connection
 
 from dotenv import load_dotenv
@@ -14,6 +14,10 @@ def create_database():
     session = SessionLocal()
 
     User.metadata.create_all(bind=session.get_bind())
+    Country.metadata.create_all(bind=session.get_bind())
+    University.metadata.create_all(bind=session.get_bind())
+    Tag.metadata.create_all(bind=session.get_bind())
+    Professor.metadata.create_all(bind=session.get_bind())
 
 
 def main():

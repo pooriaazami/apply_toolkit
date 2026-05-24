@@ -21,7 +21,7 @@ def hello(name: str = "Pooria"):
 def install():
     install_applytoolkit()
 
-    os.system('uv run alembic upgrade head')
+    # os.system('uv run alembic upgrade head')
     
 
 @app.callback(invoke_without_command=True)
