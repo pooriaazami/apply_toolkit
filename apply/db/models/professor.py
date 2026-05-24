@@ -18,5 +18,5 @@ class Professor(Base):
     university_id: Mapped[int] = mapped_column(ForeignKey("universities.id"))
     name: Mapped[str] = mapped_column(String(50), nullable=False)
     email: Mapped[str] = mapped_column(String(100), nullable=False)
-    notes: Mapped[str] = mapped_column(String(500), nullable=True)
+    notes: Mapped[str] = mapped_column(String(5000), nullable=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())

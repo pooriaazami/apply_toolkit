@@ -15,8 +15,6 @@ def get_universities_by_country(session, country_id: int):
     return session.query(University).filter_by(country_id=country_id).all()
 
 def get_universities_by_user(session, user_id: int):
-    return session.scalar(
-            select(University)
-            .join(University.country) 
-            .where(Country.user_id == user_id)
-    ).all()
+    stmt = select(University).join(University.country).where(Country.user_id == user_id)
+
+    return session.execute(stmt).scalars().all()

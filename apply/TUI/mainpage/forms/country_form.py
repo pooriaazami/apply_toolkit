@@ -1,5 +1,3 @@
-from email.message import Message
-
 from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Input, Button, Label, ListView, ListItem, Select

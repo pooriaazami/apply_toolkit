@@ -1,9 +1,9 @@
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Button, Label, Input, Select, SelectionList
+from textual.widgets import Button, Label, Input, Select, SelectionList, ListView, ListItem
 from textual.containers import Container, HorizontalGroup
 
-from db.queries import get_countries_by_user, add_university
+from db.queries import get_countries_by_user, add_university, get_universities_by_user
 
 
 class UniversityForm(Container):
@@ -32,6 +32,14 @@ class UniversityForm(Container):
             Label("", id='university-form__message')
         )
 
+        yield ListView(
+            *[
+                ListItem(Label(f"{university.name} | ({university.country.name})"))
+                for university in get_universities_by_user(self.__db_session, self.__active_user.id)
+            ],
+            id='university-form__university-list'
+        )
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == 'university-form__add-btn':
             university_name = self.query_one('#university-form__university-name', Input).value
@@ -45,6 +53,7 @@ class UniversityForm(Container):
             if new_university:
                 self.query_one('#university-form__message', Label).update("University added successfully.")
                 self.query_one('#university-form__university-name', Input).value = ""
+                self.query_one('#university-form__university-list', ListView).append(ListItem(Label(f"{new_university.name} | ({new_university.country.name})")))
             else:
                 self.query_one('#university-form__message', Label).update("Failed to add university.")
 
